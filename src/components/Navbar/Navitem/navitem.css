@@ -1,0 +1,25 @@
+.navitem {
+	overflow: hidden;
+}
+
+.navitem__link {
+	display: block;
+	padding: 0 15px;
+	line-height: 3;
+	opacity: .4;
+	text-decoration: none;
+	font-size: 14px;
+	font-weight: 500;
+	color: inherit;
+	cursor: pointer;
+}
+
+.navitem__link:hover {
+	background-color: #CDD5EA;
+}
+
+.navitem__link.active {
+	opacity: 1;
+	cursor: default;
+	background-color: transparent;
+}
