@@ -9,9 +9,9 @@ function App(props) {
 	return (
 		<BrowserRouter>
 			<Header />
-			<div className="wrapper">
-				<Navbar navList={props.state.navList} path="/"/>
-				<Content />
+			<div className = "wrapper" >
+				<Navbar navList = { props.state.navList } path="/" />
+				<Content state = { props.state } dispatch = { props.dispatch } />
 			</div>
 		</BrowserRouter>
 	)

@@ -15,3 +15,35 @@
 	font-size: 18px;
 	line-height: 1.44;
 }
+
+.form__buttons {
+	display: flex;
+	margin-top: 48px;
+}
+
+.form__buttons button {
+	height: 48px;
+	padding: 0 10px;
+	border-radius: 2px;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.form__buttons button:hover {
+	filter: brightness(1.2);
+}
+
+.btn__back {
+	flex-grow: 1;
+	margin-right: 20px;
+	border: 1px solid #404960;
+	background-color: transparent;
+	color: inherit;
+}
+
+.btn__submit {
+	flex-grow: 2;
+	background: #404960;
+	border: 1px solid rgba(64, 73, 96, 0.3);
+	color: #fff;
+}
