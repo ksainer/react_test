@@ -1,31 +1,28 @@
 import React from 'react';
 import './content.css';
 import Input from '../Input';
+import { projectCreator, resetFormCreator } from '../../redux/form-project-reducer';
 
 function Content(props) {
-
-	const fieldList = props.state.form.fields.map((field, index) => {
+	const fieldList = props.form.fields.map((field, index) => {
 		return (
 			<Input data = {field} dispatch = { props.dispatch } index = { index } key = { index } />
 		)
 	})
 
 	function onResetForm() {
-		props.dispatch({type: 'RESET-FORM'});
+		props.dispatch(resetFormCreator());
 	}
 
 	function onSubmitForm(e) {
 		e.preventDefault();
 
-		props.dispatch({
-			type: 'CREATE-PROJECT',
-			projectName: props.state.form.fields[0].currentText,
-			shortDesc: props.state.form.fields[1].currentText,
-			website: props.state.form.fields[2].currentText,
-			fullDesc: props.state.form.fields[3].currentText,
-		})
-
-
+		props.dispatch(projectCreator(
+			props.form.fields[0].currentText,
+			props.form.fields[1].currentText,
+			props.form.fields[2].currentText,
+			props.form.fields[3].currentText,
+		))
 
 		return false; // <= Почему-то не работает
 	}

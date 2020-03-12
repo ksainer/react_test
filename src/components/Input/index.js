@@ -1,12 +1,13 @@
 import React from 'react';
 import './input.css';
+import { updateFormCreator } from '../../redux/form-project-reducer';
 
 function Input(props) {
 	const spanCurrentLength = React.createRef();
 	let errorText = 'Every project needs a name, doesn’t it?';
 
 	function updateCurrentValue(e) {
-		props.data.currentText = e.target.value;
+		props.dispatch(updateFormCreator(props.index, e.target.value));
 
 		let curlen = e.target.value.length;
 		spanCurrentLength.current.firstElementChild.textContent = curlen;
@@ -16,9 +17,6 @@ function Input(props) {
 		} else {
 			spanCurrentLength.current.classList.remove('red');
 		}
-
-		props.dispatch({type: 'UPDATE-FORM', index: props.index, newText: e.target.value});
-
 	}
 
 	function getElementWithType() {
@@ -30,7 +28,7 @@ function Input(props) {
 					name={props.data.name}
 					id={props.data.name}
 					placeholder={props.data.placeholder}
-					onChange={updateCurrentValue}
+					onChange={ updateCurrentValue }
 					value={props.data.currentText} />
 			)
 		} else if (props.data.type === 'textarea') {
@@ -40,7 +38,7 @@ function Input(props) {
 					name={props.data.name} 
 					id={props.data.name}
 					placeholder={props.data.placeholder}
-					onChange={updateCurrentValue}
+					onChange={ updateCurrentValue }
 					value={props.data.currentText} />
 			)
 		}
@@ -57,7 +55,7 @@ function Input(props) {
 					<span className="input__max-length">{props.data.maxlength}</span>
 				</p>
 			</div>
-			{getElementWithType()}
+			{ getElementWithType() }
 			<div className="input__error">{errorText}</div>
 		</div>
 	)	

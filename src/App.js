@@ -10,8 +10,8 @@ function App(props) {
 		<BrowserRouter>
 			<Header />
 			<div className = "wrapper" >
-				<Navbar navList = { props.state.navList } path="/" />
-				<Content state = { props.state } dispatch = { props.dispatch } />
+				<Navbar navList = { props.state.navbar.navList } path="/" />
+				<Content form = { props.state.form } dispatch = { props.dispatch } />
 			</div>
 		</BrowserRouter>
 	)
