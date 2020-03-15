@@ -1,64 +1,73 @@
 import React from 'react';
 import './input.css';
-import { updateFormCreator } from '../../redux/form-project-reducer';
 
 function Input(props) {
+	const type = props.data.type,
+		text = props.data.text,
+		name = props.data.name,
+		placeholder = props.data.placeholder,
+		maxlength = props.data.maxlength,
+		currentText = props.data.currentText,
+		req = props.data.required;
+	let checkError = false;
+
 	const spanCurrentLength = React.createRef();
 	let errorText = 'Every project needs a name, doesn’t it?';
 
-	function updateCurrentValue(e) {
-		props.dispatch(updateFormCreator(props.index, e.target.value));
-
-		let curlen = e.target.value.length;
-		spanCurrentLength.current.firstElementChild.textContent = curlen;
-		if (curlen > props.data.maxlength) {
-			console.log('text is too long');
-			spanCurrentLength.current.classList.add('red');
-		} else {
-			spanCurrentLength.current.classList.remove('red');
-		}
+	const updateInput = (e) => {
+		props.updateCurrentValue(e.target.value);
 	}
 
-	function getElementWithType() {
-		if (props.data.type === "text") {
+	const getElementWithType = () => {
+		if (type === "text") {
 			return (
-				<input 
-					type="text" 
-					className="input__field" 
-					name={props.data.name}
-					id={props.data.name}
-					placeholder={props.data.placeholder}
-					onChange={ updateCurrentValue }
-					value={props.data.currentText} />
+				<input
+					type="text"
+					className={"input__field" + (checkError ? ' red' : '')}
+					name={name}
+					id={name}
+					placeholder={placeholder}
+					onChange={updateInput}
+					value={currentText}
+					required={req}/>
 			)
-		} else if (props.data.type === 'textarea') {
+		} else if (type === 'textarea') {
 			return (
-				<textarea 
-					className="input__field" 
-					name={props.data.name} 
-					id={props.data.name}
-					placeholder={props.data.placeholder}
-					onChange={ updateCurrentValue }
-					value={props.data.currentText} />
+				<textarea
+					className={"input__field" + (checkError ? ' red' : '')}
+					name={name}
+					id={name}
+					placeholder={placeholder}
+					onChange={updateInput}
+					value={currentText}/>
 			)
 		}
 	}
+	
+	if (maxlength && currentText.length > maxlength) {
+		checkError = true;
+		errorText = 'Text is too long.';
+	} else {
+		checkError = false;
+	}
+
 	return (
 		<div className="input">
 			<div className="input__topline">
 				<p className="input__text">
-					{props.data.text}
-					<span className="red">*</span>
+					{text}
+					{req && <span className="red">*</span>}
 				</p>
-				<p className="input__length" ref={spanCurrentLength}>
-					<span className="input__current-length">0</span>/
-					<span className="input__max-length">{props.data.maxlength}</span>
-				</p>
+				{maxlength && <p className={"input__length" + (checkError ? " red" : "")} ref={spanCurrentLength}>
+					<span className="input__current-length">{currentText.length}</span>/
+					<span className="input__max-length">{maxlength}</span>
+				</p>}
 			</div>
-			{ getElementWithType() }
-			<div className="input__error">{errorText}</div>
+			{getElementWithType()}
+			{checkError && <div className="input__error">{errorText}</div>}
+			
 		</div>
-	)	
+	)
 }
 
 export default Input;

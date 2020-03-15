@@ -1,11 +1,11 @@
 import React from 'react';
 import './navbar.css';
-import Navitem from './Navitem';
+import NavItem from './NavItem';
 
 function Navbar(props) {
 	return (
 		<ul className="main-nav">
-			<Navitem navList={props.navList} path={props.path}/>
+			<NavItem navList={props.navList} navPath={props.navPath}/>
 		</ul>
 	)
 }

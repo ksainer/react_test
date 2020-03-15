@@ -6,7 +6,7 @@ function Header() {
 		<header className="header">
 			<div className="wrapper">
 				<div className="logo">
-					<img src="img/logo.png" alt="logo" className="logo_img"/>
+					<img src="../img/logo.png" alt="logo" className="logo_img"/>
 					<p className="logo__text">IEO Launchpad</p>
 				</div>
 				<div className="login">

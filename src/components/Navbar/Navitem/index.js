@@ -1,17 +1,16 @@
 import React from 'react';
 import {Route, NavLink} from 'react-router-dom';
-import './navitem.css';
+import './navItem.css';
 import Navbar from '../../Navbar';
 
-function Navitem(props) {
+function NavItem(props) {
 
 	function getPath(lastPartPath) {
-		return props.path + lastPartPath.replace(/\s+/g, '-').toLowerCase();
+		return props.navPath + lastPartPath.replace(/\s+/g, '-').toLowerCase();
 	}
 
 	return (
 		props.navList.map(item => {
-
 			return (
 				<li className="navitem" key={item.id}>
 					<NavLink 
@@ -25,7 +24,7 @@ function Navitem(props) {
 							() => {
 								return <Navbar 
 									navList={item.navList} 
-									path={getPath(item.name) + '/'} /> 
+									navPath={getPath(item.name) + '/'} /> 
 							} 
 						} />
 					}
@@ -36,6 +35,6 @@ function Navitem(props) {
 	)
 }
 
-export default Navitem;
+export default NavItem;
 
 
