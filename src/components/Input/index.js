@@ -13,16 +13,16 @@ function Input(props) {
 	const spanCurrentLength = React.createRef();
 
 	const checkError = (currentText) => {
-		if (!currentText.length) {
+		if (requirements.req && !currentText.length) {
 			props.updateError(0);
 			return 0;
-		} else if (requirements.minlength && currentText.length < requirements.minlength) {
+		} else if (currentText.length && requirements.minlength && currentText.length < requirements.minlength) {
 			props.updateError(1);
 			return 1;
-		} else if (requirements.maxlength && currentText.length > requirements.maxlength) {
+		} else if (currentText.length && requirements.maxlength && currentText.length > requirements.maxlength) {
 			props.updateError(2);
 			return 2;
-		} else  if (requirements.pattern && !requirements.pattern.test(currentText)) {
+		} else if (currentText.length && requirements.pattern && !requirements.pattern.test(currentText)) {
 			props.updateError(3);
 			return 3;
 		} else {

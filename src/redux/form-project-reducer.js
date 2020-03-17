@@ -91,8 +91,8 @@ export const formProjectReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case UPDATE_FROM: {
 			let newState = { ...state };
-			newState.fields[action.index] = { 
-				...state.fields[action.index], 
+			newState.fields[action.index] = {
+				...state.fields[action.index],
 				currentText: action.newText
 			};
 
@@ -107,49 +107,59 @@ export const formProjectReducer = (state = initialState, action) => {
 				fullDesc: action.fullDesc
 			}
 
-			let newState = { 
-				...state, 
+			let newState = {
+				...state,
 				projects: [...state.projects, newProject]
 			};
 
 			newState.fields = state.fields.map(
-				field => ({...field, currentText: ''})
+				field => ({ ...field, currentText: '' })
 			);
 
 			newState.fields = state.fields.map(
-				field => ({...field, currentText: '', error: {...field.error, code: 0}})
+				field => ({
+					...field,
+					currentText: '',
+					error: { ...field.error, code: 0 }
+				})
 			);
 
 			return newState;
 		}
 		case RESET_FORM: {
-			let newState = {...state};
+			let newState = { ...state };
 			newState.fields = state.fields.map(
-				field => ({...field, currentText: ''})
+				field => ({ ...field, currentText: '' })
 			);
 
 			return newState;
 		}
 		case UPDATE_ERROR: {
-			let newState = {...state};
+			let newState = { ...state };
 			newState.fields = state.fields.map((field, index) => {
 				if (index === +action.fieldIndex) {
-					return {...field, error: {...field.error, code: action.newCode}}
+					return {
+						...field,
+						error: { ...field.error, code: action.newCode }
+					}
 				}
-				return {...field}
+				return field
 			});
-			
+
 			return newState;
 		}
 		case SHOW_ERROR: {
-			let newState = {...state};
+			let newState = { ...state };
 			newState.fields = state.fields.map((field, index) => {
 				if (index === +action.fieldIndex) {
-					return {...field, error: {...field.error, show: action.show}}
+					return { 
+						...field, 
+						error: { ...field.error, show: action.show } 
+					}
 				}
-				return {...field}
+				return field
 			});
-			
+
 			return newState;
 		}
 		default:
@@ -157,13 +167,13 @@ export const formProjectReducer = (state = initialState, action) => {
 	}
 }
 
-export const updateFormCreator = (index, newText) => ({
+export const updateFormActionCreator = (index, newText) => ({
 	type: UPDATE_FROM,
 	index: index,
 	newText: newText
 });
 
-export const projectCreator = (projectName, shortDesc, website, fullDesc) => ({
+export const projectActionCreator = (projectName, shortDesc, website, fullDesc) => ({
 	type: CREATE_PROJECT,
 	projectName: projectName,
 	shortDesc: shortDesc,
@@ -171,12 +181,12 @@ export const projectCreator = (projectName, shortDesc, website, fullDesc) => ({
 	fullDesc: fullDesc
 });
 
-export const resetFormCreator = () => ({ type: RESET_FORM });
+export const resetFormActionCreator = () => ({ type: RESET_FORM });
 
 export const errorShowActionCreator = (fieldIndex, show) => ({ type: SHOW_ERROR, fieldIndex, show });
 
-export const updateErrorCreator = (fieldIndex, newCode) => ({ 
-	type: UPDATE_ERROR, 
-	fieldIndex: fieldIndex,
-	newCode: newCode 
+export const updateErrorActionCreator = (fieldIndex, newCode) => ({
+	type: UPDATE_ERROR,
+	fieldIndex,
+	newCode
 });

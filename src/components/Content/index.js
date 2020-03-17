@@ -1,11 +1,16 @@
 import React from 'react';
 import './content.css';
 import InputContainer from '../Input/InputContainer';
+import * as axios from 'axios';
 
 function Content(props) {
 
 	function onResetForm() {
 		props.resetForm();
+
+		axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+			console.log(response.data);
+		});
 	}
 	
 	function onSubmitForm(e) {

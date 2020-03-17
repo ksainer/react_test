@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import Content from ".";
-import { projectCreator, resetFormCreator, errorShowActionCreator } from "../../redux/form-project-reducer";
+import { projectActionCreator, resetFormActionCreator, errorShowActionCreator } from "../../redux/form-project-reducer";
 
 const mapStateToProps = (state) => {
 	return {
@@ -12,8 +12,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, props) => {
 	return {
-		createProject: fields => dispatch(projectCreator(...fields)),
-		resetForm: () => dispatch(resetFormCreator()),
+		createProject: fields => dispatch(projectActionCreator(...fields)),
+		resetForm: () => dispatch(resetFormActionCreator()),
 		showError: (fieldIndex, show) => {
 			dispatch(errorShowActionCreator(fieldIndex, show))
 		}
