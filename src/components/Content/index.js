@@ -7,13 +7,37 @@ function Content(props) {
 	function onResetForm() {
 		props.resetForm();
 	}
-
+	
 	function onSubmitForm(e) {
 		e.preventDefault();
+		let check = false;
 
-		props.createProject(props.fields.map(field => field.currentText))
+		for (let i = 0; i < props.errorCodes.length; i++) {
+			if (props.errorCodes[i] !== 200) {
+				props.showError(i, true);
+				check = true;
+			};
+		}
 
-		return false; // <= Почему-то не работает
+		if (check) return console.log('Fail!');
+
+		const request = new XMLHttpRequest();
+		request.open("POST", "/");
+		request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+
+		let json = JSON.stringify({
+			projectName: props.fields[0],
+			projectDisc: props.fields[1],
+			website: props.fields[2],
+			fullDesc: props.fields[3]
+		 });
+
+		request.onreadystatechange = () => {
+			props.createProject(props.fields);
+			console.log('Send: ', json);	
+		}
+
+		request.send(json);
 	}
 
 	return (
@@ -26,8 +50,8 @@ function Content(props) {
 				<InputContainer index="2" />
 				<InputContainer index="3" />
 				<div className="form__buttons">
-					<button className="btn__back" type="reset" onClick={onResetForm} >Reset</button>
-					<button className="btn__submit" onClick={onSubmitForm} >Submit</button>
+					<button className="btn__back" type="reset" onClick={onResetForm}>Reset</button>
+					<button className="btn__submit" onClick={onSubmitForm}>Submit</button>
 				</div>
 			</form>
 		</div>

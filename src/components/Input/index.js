@@ -1,54 +1,87 @@
 import React from 'react';
 import './input.css';
+import InputErrorContainer from './InputError/InputErrorContainer';
 
 function Input(props) {
 	const type = props.data.type,
 		text = props.data.text,
 		name = props.data.name,
 		placeholder = props.data.placeholder,
-		maxlength = props.data.maxlength,
-		currentText = props.data.currentText,
-		req = props.data.required;
-	let checkError = false;
+		requirements = {...props.data.requirements},
+		currentText = props.data.currentText;
 
 	const spanCurrentLength = React.createRef();
-	let errorText = 'Every project needs a name, doesn’t it?';
 
-	const updateInput = (e) => {
+	const checkError = (currentText) => {
+		if (!currentText.length) {
+			props.updateError(0);
+			return 0;
+		} else if (requirements.minlength && currentText.length < requirements.minlength) {
+			props.updateError(1);
+			return 1;
+		} else if (requirements.maxlength && currentText.length > requirements.maxlength) {
+			props.updateError(2);
+			return 2;
+		} else  if (requirements.pattern && !requirements.pattern.test(currentText)) {
+			props.updateError(3);
+			return 3;
+		} else {
+			props.updateError(200);
+			return 200;
+		}
+	}
+
+	const onChangeField = (e) => {
 		props.updateCurrentValue(e.target.value);
+		
+		if (checkError(e.target.value) === 2) {
+			e.target.classList.add('red');
+			props.showError(true);
+		} else {
+			e.target.classList.remove('red');
+			props.showError(false);
+		}
+	}
+
+	const onBlurField = (e) => {
+		if ([1,2,3].includes(checkError(e.target.value))) {
+			e.target.classList.add('red');
+			props.showError(true);
+		} else {
+			e.target.classList.remove('red');
+			props.showError(false);
+		}
 	}
 
 	const getElementWithType = () => {
-		if (type === "text") {
+		if (["text", "email"].includes(type)) {
 			return (
 				<input
-					type="text"
-					className={"input__field" + (checkError ? ' red' : '')}
+					type={type}
+					className={"input__field" + (false ? ' red' : '')}
 					name={name}
 					id={name}
 					placeholder={placeholder}
-					onChange={updateInput}
+					onChange={onChangeField}
+					onBlur={onBlurField}
 					value={currentText}
-					required={req}/>
+					required={requirements.req}
+					pattern={requirements.pattern}/>
 			)
 		} else if (type === 'textarea') {
 			return (
 				<textarea
-					className={"input__field" + (checkError ? ' red' : '')}
+					className={"input__field" + (false ? ' red' : '')}
 					name={name}
 					id={name}
 					placeholder={placeholder}
-					onChange={updateInput}
-					value={currentText}/>
+					onChange={onChangeField}
+					onBlur={onBlurField}
+					value={currentText}
+					required={requirements.req}
+					pattern={requirements.pattern}/>
 			)
 		}
-	}
-	
-	if (maxlength && currentText.length > maxlength) {
-		checkError = true;
-		errorText = 'Text is too long.';
-	} else {
-		checkError = false;
 	}
 
 	return (
@@ -56,16 +89,17 @@ function Input(props) {
 			<div className="input__topline">
 				<p className="input__text">
 					{text}
-					{req && <span className="red">*</span>}
+					{requirements.req && <span className="red">*</span>}
 				</p>
-				{maxlength && <p className={"input__length" + (checkError ? " red" : "")} ref={spanCurrentLength}>
+				{requirements.maxlength && <p className={"input__length" + (false ? " red" : "")} ref={spanCurrentLength}>
 					<span className="input__current-length">{currentText.length}</span>/
-					<span className="input__max-length">{maxlength}</span>
+					<span className="input__max-length">{requirements.maxlength}</span>
 				</p>}
 			</div>
-			{getElementWithType()}
-			{checkError && <div className="input__error">{errorText}</div>}
-			
+			<div className="input__wrap">
+				{getElementWithType()}
+				<InputErrorContainer index={props.index}/>
+			</div>			
 		</div>
 	)
 }
