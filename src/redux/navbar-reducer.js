@@ -47,11 +47,11 @@ const initialState = {
 		},
 		{
 			id: 2,
-			name: 'Team'
+			name: 'Users'
 		},
 		{
 			id: 3,
-			name: 'Product'
+			name: 'Profile'
 		},
 		{
 			id: 4,

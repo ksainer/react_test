@@ -6,14 +6,14 @@ const UPDATE_FROM = 'UPDATE-FORM',
 
 const initialState = {
 	fields: [{
-		type: "text",
-		text: "Project name",
-		name: "projectName",
-		placeholder: "Your project name",
-		currentText: "",
+		type: 'text',
+		text: 'Project name',
+		name: 'projectName',
+		placeholder: 'Your project name',
+		currentText: '',
 		requirements: {
-			minlength: "3",
-			maxlength: "50",
+			minlength: '3',
+			maxlength: '50',
 			req: true,
 			pattern: /^[a-zA-Z\d\s]+$/,
 		},
@@ -24,14 +24,14 @@ const initialState = {
 		}
 	},
 	{
-		type: "text",
-		text: "Short description (see examples for popular projects on Techcrunch)",
-		name: "shortDesc",
-		placeholder: "",
-		currentText: "",
+		type: 'text',
+		text: 'Short description (see examples for popular projects on Techcrunch)',
+		name: 'shortDesc',
+		placeholder: '',
+		currentText: '',
 		requirements: {
-			minlength: "3",
-			maxlength: "50",
+			minlength: '3',
+			maxlength: '50',
 			req: true,
 			pattern: /^[a-zA-Z\d\s]+$/,
 		},
@@ -42,14 +42,14 @@ const initialState = {
 		}
 	},
 	{
-		type: "email",
-		text: "Website",
-		name: "website",
-		placeholder: "Your project website",
-		currentText: "",
+		type: 'email',
+		text: 'Website',
+		name: 'website',
+		placeholder: 'Your project website',
+		currentText: '',
 		requirements: {
-			minlength: "3",
-			maxlength: "50",
+			minlength: '3',
+			maxlength: '50',
 			req: true,
 			pattern: /^[a-z0-9._%+-]{2,}@[a-z0-9.-]{2,}\.[a-z]{2,4}$/,
 		},
@@ -60,14 +60,14 @@ const initialState = {
 		}
 	},
 	{
-		type: "textarea",
-		text: "Full project description",
-		name: "fullDesc",
-		placeholder: "Describe your project in 500 symbols",
-		currentText: "",
+		type: 'textarea',
+		text: 'Full project description',
+		name: 'fullDesc',
+		placeholder: 'Describe your project in 500 symbols',
+		currentText: '',
 		requirements: {
-			minlength: "3",
-			maxlength: "1000",
+			minlength: '3',
+			maxlength: '1000',
 			req: true,
 			pattern: /.+/,
 		},
@@ -84,7 +84,7 @@ const initialState = {
 		shortDesc: 'short desc',
 		website: 'www.website.ru',
 		fullDesc: 'lorem...'
-	}]
+	}],
 }
 
 export const formProjectReducer = (state = initialState, action) => {
@@ -152,9 +152,9 @@ export const formProjectReducer = (state = initialState, action) => {
 			let newState = { ...state };
 			newState.fields = state.fields.map((field, index) => {
 				if (index === +action.fieldIndex) {
-					return { 
-						...field, 
-						error: { ...field.error, show: action.show } 
+					return {
+						...field,
+						error: { ...field.error, show: action.show }
 					}
 				}
 				return field

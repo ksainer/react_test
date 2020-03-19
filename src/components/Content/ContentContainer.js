@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
 	}
 }
 
-const mapDispatchToProps = (dispatch, props) => {
+const mapDispatchToProps = (dispatch) => {
 	return {
 		createProject: fields => dispatch(projectActionCreator(...fields)),
 		resetForm: () => dispatch(resetFormActionCreator()),
