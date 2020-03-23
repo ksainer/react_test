@@ -17,7 +17,7 @@ function App(props) {
 				<div className='right-col'>
 					<Route path="/project-info" component={ContentContainer} />
 					<Route path="/users" component={UsersContainer} />
-					<Route path="/profile/:userID" component={Profile} />
+					<Route path="/profile/:userID?" component={Profile} />
 					<Route path="/login" component={Login} />
 				</div>
 			</div>
