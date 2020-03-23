@@ -4,7 +4,7 @@ import Preloader from '../common/Preloader';
 
 const Users = (props) => {
 	let arr = [];
-	for (let i = 1; i <= Math.ceil(props.totalCount / props.count); i++) {
+	for (let i = 1; i <= Math.min(props.pageCount, 10); i++) {
 		arr.push(i);
 	}
 	return <div>
@@ -14,7 +14,7 @@ const Users = (props) => {
 			className={'num-page' + (props.page === i ? ' selected' : '')}>
 			{i}
 		</span>)}
-		{props.isFetching ? <Preloader /> : props.list.map((user, index) => (
+		{props.isFetching ? <Preloader /> : props.list.map(user => (
 			<div className='user' key={user.id}>
 				<NavLink
 					to={'/profile/' + user.id}
@@ -23,11 +23,11 @@ const Users = (props) => {
 				</NavLink>
 				{props.followingInProgress.includes(user.id)
 					? <span>Processing...</span>
-					: <span
+					: <button
 						className='user__followed'
-						onClick={() => props.toggleFollow(user.id, index)}>
+						onClick={() => props.toggleFollow(user.id, user.followed)}>
 						{user.followed ? 'follow' : 'unfollow'}
-					</span>
+					</button>
 				}
 			</div>
 		))}

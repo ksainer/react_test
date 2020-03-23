@@ -1,6 +1,15 @@
+import React from 'react';
 import { connect } from "react-redux";
-import Input from "./index.js";
-import { updateFormActionCreator, updateErrorActionCreator, errorShowActionCreator } from "../../redux/form-project-reducer";
+import Input from ".";
+import { updateForm, updateError, showError } from "../../redux/form-project-reducer";
+
+class InputContainer extends React.Component {
+
+
+	render() {
+		return <Input {...this.props} />
+	}
+}
 
 const mapStateToProps = (state, props) => {
 	return {
@@ -12,17 +21,15 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch, props) => {
 	return {
 		updateCurrentValue: (text) => {
-			dispatch(updateFormActionCreator(props.index, text));
+			dispatch(updateForm(props.index, text));
 		},
 		updateError: (newErrorCode) => {
-			dispatch(updateErrorActionCreator(props.index, newErrorCode));
+			dispatch(updateError(props.index, newErrorCode));
 		},
 		showError: (show) => {
-			dispatch(errorShowActionCreator(props.index, show))
+			dispatch(showError(props.index, show))
 		}
 	}
 }
 
-const InputContainer = connect(mapStateToProps, mapDispatchToProps)(Input);
-
-export default InputContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(InputContainer);

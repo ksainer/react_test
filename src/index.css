@@ -32,12 +32,13 @@ code {
   border-radius: 50%;
 }
 
-.num-page:hover {
+.num-page:not(.selected):hover {
   background-color: #ccc;
 }
 
 .num-page.selected {
   font-weight: bold;
+  cursor: default;
 }
 .user {
   display: flex;

@@ -1,0 +1,52 @@
+.title {
+	font-size: 12px;
+}
+
+.input {
+	display: none;
+}
+
+.item {
+	position: relative;
+	display: flex;
+	align-items: center;
+	flex-grow: 1;
+	height: 70px;
+	padding-left: 25px;
+	padding-right: 40px;
+	border: 1px dashed #B1B4BD;
+	border-radius: 2px;
+	font-size: 12px;
+	color: #B1B4BD;
+	cursor: pointer;
+}
+
+.uploaded {
+	border: 1px solid #5EC16F;
+	background-color: rgba(94, 193, 111, 0.07);
+	color: #5EC16F;
+}
+
+.imgStatus {
+	margin-right: 20px;
+}
+.btnDelete {
+	position: absolute;
+	right: 24px;
+	top: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background: none;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	transform: translateY(-50%);
+	transition: background-color .2s;
+}
+.btnDelete:hover {
+	background-color: #C3C6CE;
+}

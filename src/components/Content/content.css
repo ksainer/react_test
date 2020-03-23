@@ -16,6 +16,18 @@
 	line-height: 1.44;
 }
 
+.uploadFiles {
+	display: flex;
+}
+
+.uploadFiles > div {
+	width: 50%;
+}
+
+.uploadFiles > div:not(:last-child) {
+	margin-right: 20px;
+}	
+
 .form__buttons {
 	display: flex;
 	margin-top: 48px;

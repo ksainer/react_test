@@ -1,25 +1,34 @@
+import React from 'react';
 import { connect } from "react-redux";
 import Content from ".";
-import { projectActionCreator, resetFormActionCreator, errorShowActionCreator } from "../../redux/form-project-reducer";
+import { postProject, resetForm, showError } from "../../redux/form-project-reducer";
+
+class ContentContainer extends React.Component {
+
+	createProject = () => {
+		let checkErrors = false;
+		for (let i = 0; i < this.props.errorCodes.length; i++) {
+			if (this.props.errorCodes[i] !== 200) {
+				this.props.showError(i, true);
+				checkErrors = true;
+			};
+		}
+		if (checkErrors) return console.log('FAIL!');
+
+		this.props.postProject(this.props.fields);
+		console.log('PROJECT SUCCESSFULLY CREATED!');
+	}
+
+	render() {
+		return <Content resetForm={this.props.resetForm} createProject={this.createProject} />
+	}
+}
 
 const mapStateToProps = (state) => {
 	return {
 		fields: state.form.fields.map(field => field.currentText),
-		requirements: state.form.fields.map(field => field.requirements),
 		errorCodes: state.form.fields.map(field => field.error.code),
 	}
 }
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		createProject: fields => dispatch(projectActionCreator(...fields)),
-		resetForm: () => dispatch(resetFormActionCreator()),
-		showError: (fieldIndex, show) => {
-			dispatch(errorShowActionCreator(fieldIndex, show))
-		}
-	}
-}
-
-const ContentContainer = connect(mapStateToProps, mapDispatchToProps)(Content)
-
-export default ContentContainer;
+export default connect(mapStateToProps, { postProject, resetForm, showError })(ContentContainer);

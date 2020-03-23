@@ -1,8 +1,12 @@
+import { formAPI } from "../api";
+
 const UPDATE_FROM = 'UPDATE-FORM',
 	CREATE_PROJECT = 'CREATE-PROJECT',
 	RESET_FORM = 'RESET-FORM',
 	UPDATE_ERROR = 'CHECK-ERROR',
-	SHOW_ERROR = 'SHOW-ERROR';
+	SHOW_ERROR = 'SHOW-ERROR',
+	TOGGLE_UPLOAD_FILE = 'TOGGLE_UPLOAD_FILE',
+	SET_FILE = 'SET_FILE';
 
 const initialState = {
 	fields: [{
@@ -85,6 +89,26 @@ const initialState = {
 		website: 'www.website.ru',
 		fullDesc: 'lorem...'
 	}],
+	uploadFiles: [
+		{
+			title: 'Whitepaper',
+			name: 'whitepaper',
+			required: false,
+			file: null,
+			accept: '.jpeg, .jpg, .png',
+			size: 2,
+			uploaded: false
+		},
+		{
+			title: 'Pitch deck (see template)',
+			name: 'deck',
+			required: true,
+			file: null,
+			accept: '.pdf',
+			size: 40,
+			uploaded: false
+		}
+	]
 }
 
 export const formProjectReducer = (state = initialState, action) => {
@@ -95,26 +119,21 @@ export const formProjectReducer = (state = initialState, action) => {
 				...state.fields[action.index],
 				currentText: action.newText
 			};
-
 			return newState;
 		}
 		case CREATE_PROJECT: {
-			let newProject = {
+			const newProject = {
 				id: state.projects.length + 1,
-				projectName: action.projectName,
-				shortDesc: action.shortDesc,
-				website: action.website,
-				fullDesc: action.fullDesc
+				projectName: state.fields[0].currentText,
+				shortDesc: state.fields[1].currentText,
+				website: state.fields[2].currentText,
+				fullDesc: state.fields[3].currentText
 			}
 
-			let newState = {
+			const newState = {
 				...state,
 				projects: [...state.projects, newProject]
 			};
-
-			newState.fields = state.fields.map(
-				field => ({ ...field, currentText: '' })
-			);
 
 			newState.fields = state.fields.map(
 				field => ({
@@ -162,31 +181,36 @@ export const formProjectReducer = (state = initialState, action) => {
 
 			return newState;
 		}
+		case TOGGLE_UPLOAD_FILE: {
+			let newState = { ...state, uploadFiles: [...state.uploadFiles] };
+
+			newState.uploadFiles[action.index] = { ...state.uploadFiles[action.index], uploaded: action.uploaded }
+
+			return newState;
+		}
 		default:
 			return state;
 	}
 }
 
-export const updateFormActionCreator = (index, newText) => ({
-	type: UPDATE_FROM,
-	index: index,
-	newText: newText
+export const updateForm = (index, newText) => ({
+	type: UPDATE_FROM, index, newText
 });
 
-export const projectActionCreator = (projectName, shortDesc, website, fullDesc) => ({
-	type: CREATE_PROJECT,
-	projectName: projectName,
-	shortDesc: shortDesc,
-	website: website,
-	fullDesc: fullDesc
+export const resetForm = () => ({ type: RESET_FORM });
+
+export const createProject = () => ({ type: CREATE_PROJECT });
+
+export const showError = (fieldIndex, show) => ({ type: SHOW_ERROR, fieldIndex, show });
+
+export const updateError = (fieldIndex, newCode) => ({
+	type: UPDATE_ERROR, fieldIndex, newCode
 });
 
-export const resetFormActionCreator = () => ({ type: RESET_FORM });
+export const postProject = (fields) => (dispatch) => {
+	// formAPI.postProject(fields)
+	// 	.then(() => )
+	dispatch(createProject())
+}
 
-export const errorShowActionCreator = (fieldIndex, show) => ({ type: SHOW_ERROR, fieldIndex, show });
-
-export const updateErrorActionCreator = (fieldIndex, newCode) => ({
-	type: UPDATE_ERROR,
-	fieldIndex,
-	newCode
-});
+export const toggleUploadFile = (index, uploaded) => ({ type: TOGGLE_UPLOAD_FILE, index, uploaded })

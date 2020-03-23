@@ -8,11 +8,6 @@ const mapStateToProps = (state, props) => {
 	}
 }
 
-const mapDispatchToProps = () => {
-	return {
-	}
-}
-
-const InputErrorContainer = connect(mapStateToProps, mapDispatchToProps)(InputError)
+const InputErrorContainer = connect(mapStateToProps, {})(InputError)
 
 export default InputErrorContainer;

@@ -31,6 +31,13 @@
 .login__name {
 	margin: 0 8px 0 0;
 	line-height: 42px;
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.login__name:hover {
+	text-decoration: underline;
 }
 
 .login__logout {

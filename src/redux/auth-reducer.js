@@ -1,3 +1,5 @@
+import { authAPI } from "../api";
+
 const SET_USER_DATA = 'SET-USER-DATA';
 const TOGGLE_IS_AUTH = 'TOGGLE-IS-AUTH';
 
@@ -21,6 +23,17 @@ export const authReducer = (state = initialState, action) => {
 	}
 }
 
-export const setUserData = (id, email, login) => ({ type: SET_USER_DATA, data: {id, email, login} })
+export const setUserData = (id, email, login) => ({ type: SET_USER_DATA, data: { id, email, login } })
 
 export const toggleIsAuth = (isAuth) => ({ type: TOGGLE_IS_AUTH, isAuth })
+
+export const getUserData = () => (dispatch) => {
+	authAPI.authMe()
+		.then(response => {
+			if (response.data.resultCode === 0) {
+				const { id, email, login } = response.data.data;
+				dispatch(setUserData(id, email, login));
+				dispatch(toggleIsAuth(true));
+			}
+		})
+}

@@ -6,14 +6,13 @@ import store from './redux/redux-store';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-const rerender = () => {
-	ReactDOM.render(
-		<BrowserRouter>
-			<Provider store={store}>
-				<App state = {store.getState()}/>
-			</Provider>
-		</BrowserRouter>,
-		document.getElementById('root'));
-}
+ReactDOM.render(
+	<BrowserRouter>
+		<Provider store={store}>
+			<App state={store.getState()} />
+		</Provider>
+	</BrowserRouter>,
+	document.getElementById('root')
+);
 
-rerender();
+window.state = store.getState();
