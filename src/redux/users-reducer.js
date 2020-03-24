@@ -44,6 +44,8 @@ export const usersReducer = (state = initialState, action) => {
 	} else return state;
 }
 
+// dispatch creators
+
 export const setUsers = (list) => {
 	return { type: SET_USERS, list }
 }
@@ -65,6 +67,8 @@ export const toggleIsFollowed = (followed, userID) => {
 export const toggleFollowingProgress = (isFetching, id) => {
 	return { type: TOGGLE_FOLLOWING_PROGRESS, isFetching, id }
 }
+
+// thunk creators
 
 export const getUsers = (page, count) => {
 	return (dispatch) => {

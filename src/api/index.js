@@ -24,6 +24,12 @@ export const usersAPI = {
 export const authAPI = {
 	authMe() {
 		return instance.get(`auth/me`);
+	},
+	authLogin(formData) {
+		return instance.post('auth/login', formData);
+	},
+	authLogout() {
+		return instance.delete('auth/login');
 	}
 }
 
@@ -43,7 +49,19 @@ export const formAPI = {
 		request.onreadystatechange = () => {
 			console.log('Send: ', json);
 		}
-		
+
 		request.send(json);
+	}
+}
+
+export const profileAPI = {
+	getProfile(userID = 6520) {
+		return instance.get(`profile/${userID}`);
+	},
+	getStatus(userID = 6520) {
+		return instance.get(`profile/status/${userID}`);
+	},
+	updateStatus(status) {
+		return instance.put(`profile/status`, { status });
 	}
 }

@@ -5,8 +5,9 @@ import HeaderContainer from './components/Header/HeaderContainer';
 import Navbar from './components/Navbar';
 import ContentContainer from './components/Content/ContentContainer';
 import UsersContainer from './components/Users/UsersContainer';
-import Profile from './components/Profile';
+import ProfileContainer from './components/Profile/ProfileContainer';
 import Login from './components/Login';
+import Logout from './components/Logout';
 
 function App(props) {
 	return (
@@ -17,8 +18,9 @@ function App(props) {
 				<div className='right-col'>
 					<Route path="/project-info" component={ContentContainer} />
 					<Route path="/users" component={UsersContainer} />
-					<Route path="/profile/:userID?" component={Profile} />
+					<Route path="/profile/:userID?" component={ProfileContainer} />
 					<Route path="/login" component={Login} />
+					<Route path="/logout" component={Logout} />
 				</div>
 			</div>
 		</div>

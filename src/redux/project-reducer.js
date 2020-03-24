@@ -110,7 +110,7 @@ const initialState = {
 	]
 }
 
-export const formProjectReducer = (state = initialState, action) => {
+export const projectReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case UPDATE_FROM: {
 			let newState = { ...state };
@@ -192,6 +192,8 @@ export const formProjectReducer = (state = initialState, action) => {
 	}
 }
 
+// dispatch creators:
+
 export const updateForm = (index, newText) => ({
 	type: UPDATE_FROM, index, newText
 });
@@ -206,10 +208,13 @@ export const updateError = (fieldIndex, newCode) => ({
 	type: UPDATE_ERROR, fieldIndex, newCode
 });
 
+export const toggleUploadFile = (index, uploaded) => ({ type: TOGGLE_UPLOAD_FILE, index, uploaded })
+
+
+// thunks:
+
 export const postProject = (fields) => (dispatch) => {
 	// formAPI.postProject(fields)
 	// 	.then(() => )
 	dispatch(createProject())
 }
-
-export const toggleUploadFile = (index, uploaded) => ({ type: TOGGLE_UPLOAD_FILE, index, uploaded })

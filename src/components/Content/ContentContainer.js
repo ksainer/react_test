@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 import Content from ".";
-import { postProject, resetForm, showError } from "../../redux/form-project-reducer";
+import { postProject, resetForm, showError } from "../../redux/project-reducer";
 
 class ContentContainer extends React.Component {
 
@@ -26,8 +26,8 @@ class ContentContainer extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		fields: state.form.fields.map(field => field.currentText),
-		errorCodes: state.form.fields.map(field => field.error.code),
+		fields: state.createProject.fields.map(field => field.currentText),
+		errorCodes: state.createProject.fields.map(field => field.error.code),
 	}
 }
 

@@ -16,6 +16,7 @@ export const authReducer = (state = initialState, action) => {
 			return { ...state, ...action.data }
 		}
 		case (TOGGLE_IS_AUTH): {
+			if (!action.isAuth) return { ...initialState }
 			return { ...state, isAuth: action.isAuth }
 		}
 		default:
@@ -27,7 +28,7 @@ export const setUserData = (id, email, login) => ({ type: SET_USER_DATA, data: {
 
 export const toggleIsAuth = (isAuth) => ({ type: TOGGLE_IS_AUTH, isAuth })
 
-export const getUserData = () => (dispatch) => {
+export const getUserData = () => dispatch => {
 	authAPI.authMe()
 		.then(response => {
 			if (response.data.resultCode === 0) {
@@ -36,4 +37,25 @@ export const getUserData = () => (dispatch) => {
 				dispatch(toggleIsAuth(true));
 			}
 		})
+}
+
+export const login = data => dispatch => {
+	authAPI.authLogin(data).then(res => {
+		if (res.resultCode) {
+			console.warn(res.message);
+		} else {
+			dispatch(toggleIsAuth(true));
+			dispatch(getUserData());
+		}
+	})
+}
+
+export const logout = () => dispatch => {
+	authAPI.authLogout().then(res => {
+		if (res.resultCode) {
+			console.warn(res.message);
+		} else {
+			dispatch(toggleIsAuth(false));
+		}
+	})
 }

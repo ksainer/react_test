@@ -1,15 +1,19 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import { formProjectReducer } from './form-project-reducer';
+import { projectReducer } from './project-reducer';
 import { navbarReducer } from './navbar-reducer';
 import { usersReducer } from './users-reducer';
 import { authReducer } from './auth-reducer';
+import { profileReducer } from './profile-reducer';
+import { reducer as formReducer } from 'redux-form';
 import thunk from 'redux-thunk';
 
 const reducers = combineReducers({
-	form: formProjectReducer,
+	createProject: projectReducer,
 	navbar: navbarReducer,
 	users: usersReducer,
-	auth: authReducer
+	auth: authReducer,
+	profile: profileReducer,
+	form: formReducer
 })
 
 // let store = createStore(reducers, applyMiddleware(thunk));

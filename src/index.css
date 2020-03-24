@@ -73,3 +73,20 @@ code {
   height: 100%;
   width: 100%;
 }
+
+.status__input {
+  width: 100%;
+  min-height: 25px;
+  margin: 0;
+}
+
+.status__text {
+  min-height: 25px;
+  margin: 0;
+  border: 1px solid lightgray;
+  cursor: pointer;
+}
+
+.status__text:hover {
+  background-color: lightgray;
+}

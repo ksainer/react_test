@@ -3,8 +3,8 @@ import InputError from ".";
 
 const mapStateToProps = (state, props) => {
 	return {
-		text: state.form.fields[props.index].error.codeList[state.form.fields[props.index].error.code] || 'good',
-		show: state.form.fields[props.index].error.show
+		text: state.createProject.fields[props.index].error.codeList[state.createProject.fields[props.index].error.code] || 'good',
+		show: state.createProject.fields[props.index].error.show
 	}
 }
 

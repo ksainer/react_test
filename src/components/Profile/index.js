@@ -1,9 +1,16 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
-import { withAuthRedirect} from '../hoc/withAuthRedirect';
+import ProfileStatus from './ProfileStatus';
 
 const Project = (props) => {
-	return <div>Profile - user ID: {props.match.params.userID}</div>
+	return <div>
+		<h2>Profile</h2>
+		<p><b>ID: </b>{props.userID}</p>
+		<p><b>fullName: </b>{props.fullName} </p>
+		{props.isMe
+			? <ProfileStatus />
+			: <p><b>Status: </b>{props.status}</p>}
+	</div>
 }
 
-export default withRouter(withAuthRedirect(Project));
+
+export default Project;

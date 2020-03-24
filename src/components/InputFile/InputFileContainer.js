@@ -1,7 +1,7 @@
 import React from 'react';
 import InputFile from '.';
 import { connect } from 'react-redux';
-import { toggleUploadFile } from '../../redux/form-project-reducer';
+import { toggleUploadFile } from '../../redux/project-reducer';
 
 class InputFileContainer extends React.Component {
 	render() {
@@ -13,7 +13,7 @@ class InputFileContainer extends React.Component {
 
 const mapStateToProps = (state, props) => {
 	return {
-		data: state.form.uploadFiles[props.index],
+		data: state.createProject.uploadFiles[props.index],
 		index: props.index
 	}
 }

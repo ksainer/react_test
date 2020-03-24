@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 import Input from ".";
-import { updateForm, updateError, showError } from "../../redux/form-project-reducer";
+import { updateForm, updateError, showError } from "../../redux/project-reducer";
 
 class InputContainer extends React.Component {
 
@@ -13,7 +13,7 @@ class InputContainer extends React.Component {
 
 const mapStateToProps = (state, props) => {
 	return {
-		data: state.form.fields[props.index],
+		data: state.createProject.fields[props.index],
 		index: props.index
 	}
 }
