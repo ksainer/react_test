@@ -22,13 +22,13 @@ export const usersAPI = {
 }
 
 export const authAPI = {
-	authMe() {
+	me() {
 		return instance.get(`auth/me`);
 	},
-	authLogin(formData) {
+	login(formData) {
 		return instance.post('auth/login', formData);
 	},
-	authLogout() {
+	logout() {
 		return instance.delete('auth/login');
 	}
 }

@@ -1,20 +1,41 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Preloader from '../common/Preloader';
 
 const Users = (props) => {
-	let arr = [];
-	for (let i = 1; i <= Math.min(props.pageCount, 10); i++) {
-		arr.push(i);
+	const pageNums = (currentPage, maxLength) => {
+		let arr = [];
+
+		const pageNum = (i) => {
+			return <span
+				key={i}
+				onClick={() => { currentPage === i ? console.log('false') : props.changePage(i) }}
+				className={'num-page' + (currentPage === i ? ' selected' : '')}>
+				{i}
+			</span>
+		}
+
+		if (maxLength > 6) {
+			arr.push(pageNum(1));
+			if (currentPage > 5) arr.push(' ... ');
+
+			for (let i = Math.min(Math.max(currentPage - 3, 2), maxLength - 4); i <= Math.max(Math.min(currentPage + 3, maxLength - 1), 5); i++) {
+				arr.push(pageNum(i));
+			}
+
+			if (currentPage <= maxLength - 5) arr.push(' ... ');
+			arr.push(pageNum(maxLength));
+		} else {
+			for (let i = 1; i <= maxLength; i++) {
+				arr.push(pageNum(i));
+			}
+		}
+
+		return arr;
 	}
+	
 	return <div>
-		{arr.map(i => <span
-			key={i}
-			onClick={() => { props.page === i ? console.log('false') : props.changePage(i) }}
-			className={'num-page' + (props.page === i ? ' selected' : '')}>
-			{i}
-		</span>)}
-		{props.isFetching ? <Preloader /> : props.list.map(user => (
+		{pageNums(props.page, props.pageCount)}
+		{props.list.map(user => (
 			<div className='user' key={user.id}>
 				<NavLink
 					to={'/profile/' + user.id}

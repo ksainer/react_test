@@ -10,7 +10,7 @@ const SET_USERS = 'SET-USERS',
 
 const initialState = {
 	list: [],
-	count: 5,
+	count: 10,
 	page: 1,
 	totalCount: 0,
 	isFetching: false,

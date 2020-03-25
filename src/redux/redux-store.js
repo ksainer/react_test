@@ -6,6 +6,7 @@ import { authReducer } from './auth-reducer';
 import { profileReducer } from './profile-reducer';
 import { reducer as formReducer } from 'redux-form';
 import thunk from 'redux-thunk';
+import { appReducer } from './app-reducer';
 
 const reducers = combineReducers({
 	createProject: projectReducer,
@@ -13,11 +14,9 @@ const reducers = combineReducers({
 	users: usersReducer,
 	auth: authReducer,
 	profile: profileReducer,
-	form: formReducer
-})
-
-// let store = createStore(reducers, applyMiddleware(thunk));
-// , window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+	form: formReducer,
+	app: appReducer,
+});
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducers, /* preloadedState, */ composeEnhancers(

@@ -1,4 +1,5 @@
 import { authAPI } from "../api";
+import { stopSubmit } from "redux-form";
 
 const SET_USER_DATA = 'SET-USER-DATA';
 const TOGGLE_IS_AUTH = 'TOGGLE-IS-AUTH';
@@ -28,8 +29,10 @@ export const setUserData = (id, email, login) => ({ type: SET_USER_DATA, data: {
 
 export const toggleIsAuth = (isAuth) => ({ type: TOGGLE_IS_AUTH, isAuth })
 
+// thunks:
+
 export const getUserData = () => dispatch => {
-	authAPI.authMe()
+	return authAPI.me()
 		.then(response => {
 			if (response.data.resultCode === 0) {
 				const { id, email, login } = response.data.data;
@@ -39,21 +42,20 @@ export const getUserData = () => dispatch => {
 		})
 }
 
-export const login = data => dispatch => {
-	authAPI.authLogin(data).then(res => {
-		if (res.resultCode) {
-			console.warn(res.message);
+export const login = values => dispatch => {
+	authAPI.login(values).then(res => {
+		if (res.data.resultCode) {
+			dispatch(stopSubmit('login', { _error: res.data.messages[0] }));
 		} else {
-			dispatch(toggleIsAuth(true));
 			dispatch(getUserData());
 		}
 	})
 }
 
 export const logout = () => dispatch => {
-	authAPI.authLogout().then(res => {
-		if (res.resultCode) {
-			console.warn(res.message);
+	authAPI.logout().then(res => {
+		if (res.data.resultCode) {
+			console.warn(res.data.messages);
 		} else {
 			dispatch(toggleIsAuth(false));
 		}

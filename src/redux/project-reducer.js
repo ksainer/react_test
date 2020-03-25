@@ -57,7 +57,7 @@ const initialState = {
 			pattern: /^[a-z0-9._%+-]{2,}@[a-z0-9.-]{2,}\.[a-z]{2,4}$/,
 		},
 		error: {
-			codeList: ['Please write something here', 'Text is too SHORT', 'Text is too LONG', 'Please write correct value'],
+			codeList: ['Please write something here', 'Text is too SHORT', 'Text is too LONG', 'Invalid email address'],
 			code: 0,
 			show: false
 		}

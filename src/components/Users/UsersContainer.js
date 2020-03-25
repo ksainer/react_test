@@ -4,6 +4,7 @@ import Users from ".";
 import { setPage, getUsers, toggleFollow } from "../../redux/users-reducer";
 import { withAuthRedirect } from '../hoc/withAuthRedirect';
 import { compose } from 'redux';
+import Preloader from '../common/Preloader';
 
 class UsersContainer extends React.Component {
 	componentDidMount() {
@@ -18,12 +19,14 @@ class UsersContainer extends React.Component {
 	}
 
 	render() {
+		if (this.props.isFetching) {
+			return <Preloader />
+		}
 		return <Users
 			changePage={this.changePage}
 			pageCount={Math.ceil(this.props.totalCount / this.props.count)}
 			page={this.props.page}
 			list={this.props.list}
-			isFetching={this.props.isFetching}
 			toggleFollow={this.props.toggleFollow}
 			followingInProgress={this.props.followingInProgress}
 		/>

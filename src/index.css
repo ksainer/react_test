@@ -69,21 +69,36 @@ code {
   justify-content: center;
   align-items: center;
   flex-grow: 1;
+  width: 100%;
   max-height: 80vh;
   height: 100%;
-  width: 100%;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+}
+
+.status__name {
+  margin-right: 10px;
+  font-weight: bold;
 }
 
 .status__input {
   width: 100%;
-  min-height: 25px;
   margin: 0;
+  padding: 0 10px;
+  line-height: 25px;
+  font-size: 14px;
 }
 
 .status__text {
-  min-height: 25px;
+  width: 100%;
   margin: 0;
+  padding: 0 10px;
   border: 1px solid lightgray;
+  line-height: 25px;
+  font-size: 14px;
   cursor: pointer;
 }
 

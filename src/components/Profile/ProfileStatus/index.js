@@ -34,8 +34,8 @@ class ProfileStatus extends React.Component {
 	}
 
 	render() {
-		return <div>
-			<p><b>Status:</b></p>
+		return <div className="status">
+			<div className="status__name">Status:</div>
 			{this.state.editMode
 				? <input className="status__input"
 					value={this.state.status} autoFocus
